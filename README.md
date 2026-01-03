@@ -25,24 +25,24 @@ git clone https://github.com/yourusername/makebox.git ~/makebox
 
 **For zsh** (default on macOS):
 ```bash
-echo "alias gmake='make -f ~/makebox/Makefile'" >> ~/.zshrc
+echo "alias makez='make -f ~/makebox/Makefile'" >> ~/.zshrc
 source ~/.zshrc
 ```
 
 **For bash**:
 ```bash
-echo "alias gmake='make -f ~/makebox/Makefile'" >> ~/.bash_profile
+echo "alias makez='make -f ~/makebox/Makefile'" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
 3. Test the installation:
 ```bash
-gmake quick-test
+makez quick-test
 ```
 
 If everything is working, you should see a success message. For a complete health check, run:
 ```bash
-gmake healthcheck
+makez healthcheck
 ```
 
 ## 📖 Usage
@@ -51,22 +51,22 @@ Run any command from anywhere in your system:
 
 ```bash
 # Show all available commands
-gmake help
+makez help
 
 # Utility commands
-gmake clean-ds           # Clean .DS_Store files (macOS)
-gmake clean-node         # Remove node_modules directories
-gmake system-info        # Show system information
-gmake check-port PORT=8080  # Check what process is using a port
+makez clean-ds           # Clean .DS_Store files (macOS)
+makez clean-node         # Remove node_modules directories
+makez system-info        # Show system information
+makez check-port PORT=8080  # Check what process is using a port
 
 # Kind (Kubernetes) commands
-gmake kind-list          # List all kind clusters
-gmake kind-export-kubeconfig CLUSTER_NAME=my-cluster  # Export kubeconfig
-gmake kind-create CLUSTER_NAME=dev  # Create new cluster
+makez kind-list          # List all kind clusters
+makez kind-export-kubeconfig CLUSTER_NAME=my-cluster  # Export kubeconfig
+makez kind-create CLUSTER_NAME=dev  # Create new cluster
 
 # Health & Testing
-gmake healthcheck        # Complete health check
-gmake quick-test         # Quick installation test
+makez healthcheck        # Complete health check
+makez quick-test         # Quick installation test
 ```
 
 ## 📁 Project Structure
@@ -176,7 +176,7 @@ Add to VS Code tasks.json:
 
 For zsh auto-completion, add to your `.zshrc`:
 ```bash
-compdef _make gmake
+compdef _make makez
 ```
 
 ## 📝 License
