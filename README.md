@@ -1,192 +1,85 @@
 # 📦 MakeZ
 
-> 🛠️ Global Makefiles toolkit for developers - Run useful commands from anywhere without cluttering your projects
+> A modular toolkit for creating your own global Make commands
 
-MakeZ is a collection of portable Makefiles designed to streamline your development workflow. Execute common tasks from any directory while keeping your project-specific Makefiles clean and focused.
+MakeZ is a **boilerplate/framework** for building your personal automation toolbox. Clone it, add your own commands, and run them from anywhere.
 
-## ✨ Features
+The included modules are **examples** to get you started.
 
-- **Global Commands**: Run commands from anywhere in your system
-- **Modular Structure**: Organized by categories (Utilities, Kind/Kubernetes, Health & Testing)
-- **Non-invasive**: Works alongside your existing project Makefiles
-- **Extensible**: Easy to add your own custom commands
-- **Version Controlled**: Keep your commands synchronized across machines
+## 🚀 Install
 
-## 🚀 Quick Start
-
-### Installation
-
-1. Clone the repository:
 ```bash
+# Clone the repository
 git clone https://github.com/wguilherme/makez.git ~/makez
-```
 
-2. Add an alias to your shell configuration:
-
-**For zsh** (default on macOS):
-```bash
+# Add alias to your shell
 echo "alias makez='make -f ~/makez/Makefile'" >> ~/.zshrc
 source ~/.zshrc
-```
 
-**For bash**:
-```bash
-echo "alias makez='make -f ~/makez/Makefile'" >> ~/.bash_profile
-source ~/.bash_profile
-```
-
-3. Test the installation:
-```bash
-makez quick-test
-```
-
-If everything is working, you should see a success message. For a complete health check, run:
-```bash
-makez healthcheck
-```
-
-## 📖 Usage
-
-Run any command from anywhere in your system:
-
-```bash
-# Show all available commands
+# Test it
 makez help
-
-# Utility commands
-makez clean-ds           # Clean .DS_Store files (macOS)
-makez clean-node         # Remove node_modules directories
-makez system-info        # Show system information
-makez check-port PORT=8080  # Check what process is using a port
-
-# Kind (Kubernetes) commands
-makez kind-list          # List all kind clusters
-makez kind-export-kubeconfig CLUSTER_NAME=my-cluster  # Export kubeconfig
-makez kind-create CLUSTER_NAME=dev  # Create new cluster
-
-# Health & Testing
-makez healthcheck        # Complete health check
-makez quick-test         # Quick installation test
 ```
 
-## 📁 Project Structure
+## 🔧 Create Your First Command
+
+Create a new file `makefiles/my-commands.mk`:
+
+```makefile
+.PHONY: hello db-backup
+
+hello: ## Say hello
+	@echo "Hello from MakeZ!"
+
+db-backup: ## Backup database
+	@pg_dump mydb > ~/backups/mydb-$(shell date +%Y%m%d).sql
+	@echo "Backup done!"
+```
+
+That's it! Now run from anywhere:
+
+```bash
+makez hello
+makez db-backup
+```
+
+## 📁 Structure
 
 ```
 makez/
-├── README.md                   # This file
-├── Makefile                    # Main Makefile that includes all modules
-├── makefiles/                  # Modular command files
-│   ├── utils.mk               # General utilities and system commands
-│   ├── kind.mk                # Kubernetes Kind cluster management
-│   └── healthcheck.mk         # Health checks and testing
-├── scripts/                    # Helper scripts
-│   ├── dev-env-validator.sh   # Development environment validation
-│   ├── docker-cleanup.sh      # Advanced Docker cleanup
-│   └── git-repo-health.sh     # Git repository health checker
-└── .env.example               # Example environment variables
+├── Makefile              # Main file (auto-includes all .mk modules)
+├── makefiles/            # Your command modules
+│   ├── docker.mk         # Docker utilities
+│   └── example.mk        # Simple example
+└── scripts/              # Helper shell scripts
 ```
 
-## 🔧 Configuration
+## 📐 Naming Convention
 
-### Environment Variables
-
-Copy `.env.example` to `.env` and customize:
-
-```bash
-cp .env.example .env
-```
-
-Available variables:
-- `PROJECTS_DIR`: Directory where your projects are located (default: `~/git`)
-
-### Adding Custom Commands
-
-1. Create a new file in `makefiles/` or edit an existing one:
+Use `module-command` pattern to group related commands in help output:
 
 ```makefile
-# makefiles/custom.mk
-.PHONY: my-command
-
-my-command:
-    @echo "Running my custom command..."
-    # Your command here
+# makefiles/docker.mk
+docker-ps: ## List containers
+docker-clean: ## Remove stopped containers
+docker-prune: ## Full cleanup
 ```
 
-2. Include it in the main `Makefile`:
+Since `makez help` sorts alphabetically, prefixed commands stay grouped:
 
-```makefile
-include makefiles/custom.mk
-```
-
-## 🎯 Command Categories
-
-### 🔧 Utilities
-- `clean-ds` - Remove .DS_Store files (macOS)
-- `clean-node` - Remove node_modules directories  
-- `clean-python` - Remove Python cache files
-- `system-info` - Show comprehensive system information
-- `network-info` - Show network information and connectivity
-- `check-port` - Check what process is using a specific port
-- `flush-dns` - Clear DNS cache
-- `backup-dotfiles` - Backup configuration files
-
-### ☸️ Kind (Kubernetes)
-- `kind-create` - Create a new kind cluster
-- `kind-delete` - Delete a kind cluster
-- `kind-list` - List all kind clusters
-- `kind-export-kubeconfig` - Export kubeconfig for a cluster
-- `kind-load-image` - Load Docker image into cluster
-- `kind-status` - Show status of all kind clusters
-
-### 🏥 Health & Testing
-- `healthcheck` - Complete health check and validation
-- `quick-test` - Quick installation test
-- `install-help` - Show installation instructions
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/awesome-command`)
-3. Commit your changes (`git commit -m 'Add awesome command'`)
-4. Push to the branch (`git push origin feature/awesome-command`)
-5. Open a Pull Request
-
-## 💡 Tips & Tricks
-
-### Avoiding Conflicts
-
-Always prefix your global commands to avoid conflicts with local Makefiles:
-- Use descriptive prefixes: `docker-`, `git-`, `dev-`
-- Or use a global prefix: `g-clean`, `g-setup`
-
-### Running from VS Code
-
-Add to VS Code tasks.json:
-```json
-{
-  "label": "MakeZ: Help",
-  "type": "shell",
-  "command": "make -f ~/makez/Makefile help"
-}
-```
-
-### Auto-completion
-
-For zsh auto-completion, add to your `.zshrc`:
 ```bash
-compdef _make makez
+docker-clean       Remove stopped containers
+docker-prune       Full cleanup
+docker-ps          List containers
 ```
+
+See `makefiles/docker.mk` for a real example.
+
+## 💡 Tips
+
+- **Use `## description`** after targets for auto-generated help
+- **One module per category**: `makefiles/docker.mk`, `makefiles/git.mk`
+- **Scripts folder**: Put complex logic in `scripts/` and call from `.mk`
 
 ## 📝 License
 
-MIT License - feel free to use this in your personal and commercial projects.
-
-## 🙏 Acknowledgments
-
-Inspired by the need to have useful commands available everywhere without polluting project-specific Makefiles.
-
----
-
-**Made with ❤️ for developers who love automation**
+MIT - Use it, fork it, make it yours.
