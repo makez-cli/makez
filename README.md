@@ -1,8 +1,8 @@
-# 📦 MakeBox
+# 📦 MakeZ
 
 > 🛠️ Global Makefiles toolkit for developers - Run useful commands from anywhere without cluttering your projects
 
-MakeBox is a collection of portable Makefiles designed to streamline your development workflow. Execute common tasks from any directory while keeping your project-specific Makefiles clean and focused.
+MakeZ is a collection of portable Makefiles designed to streamline your development workflow. Execute common tasks from any directory while keeping your project-specific Makefiles clean and focused.
 
 ## ✨ Features
 
@@ -18,20 +18,20 @@ MakeBox is a collection of portable Makefiles designed to streamline your develo
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/makebox.git ~/makebox
+git clone https://github.com/wguilherme/makez.git ~/makez
 ```
 
 2. Add an alias to your shell configuration:
 
 **For zsh** (default on macOS):
 ```bash
-echo "alias makez='make -f ~/makebox/Makefile'" >> ~/.zshrc
+echo "alias makez='make -f ~/makez/Makefile'" >> ~/.zshrc
 source ~/.zshrc
 ```
 
 **For bash**:
 ```bash
-echo "alias makez='make -f ~/makebox/Makefile'" >> ~/.bash_profile
+echo "alias makez='make -f ~/makez/Makefile'" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
@@ -72,7 +72,7 @@ makez quick-test         # Quick installation test
 ## 📁 Project Structure
 
 ```
-makebox/
+makez/
 ├── README.md                   # This file
 ├── Makefile                    # Main Makefile that includes all modules
 ├── makefiles/                  # Modular command files
@@ -166,9 +166,9 @@ Always prefix your global commands to avoid conflicts with local Makefiles:
 Add to VS Code tasks.json:
 ```json
 {
-  "label": "MakeBox: Help",
+  "label": "MakeZ: Help",
   "type": "shell",
-  "command": "make -f ~/makebox/Makefile help"
+  "command": "make -f ~/makez/Makefile help"
 }
 ```
 
