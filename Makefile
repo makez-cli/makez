@@ -1,4 +1,4 @@
-# MakeBox - Global Makefiles Toolkit
+# MakeZ - Global Makefiles Toolkit
 # Main entry point that includes all modular makefiles
 
 # Default shell
@@ -27,7 +27,7 @@ include $(MK_FILES)
 .PHONY: help
 help:
 	@echo ""
-	@echo "  📦 MakeBox - Global Makefiles Toolkit"
+	@echo "  📦 MakeZ - Global Makefiles Toolkit"
 	@echo "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 	@echo ""
 	@$(MAKE) -f $(MAIN_MAKEFILE) _show-utils-commands 2>/dev/null || true
@@ -35,7 +35,7 @@ help:
 	@$(MAKE) -f $(MAIN_MAKEFILE) _show-health-commands 2>/dev/null || true
 	@$(MAKE) -f $(MAIN_MAKEFILE) _show-scripts 2>/dev/null || true
 	@echo "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-	@echo "  Usage: gmake <command>"
+	@echo "  Usage: makez <command>"
 	@echo "  Environment: PROJECTS_DIR=$(PROJECTS_DIR)"
 	@echo "  Loaded modules: $$(ls $(MAKEFILE_DIR)makefiles/*.mk 2>/dev/null | wc -l | tr -d ' ') .mk files"
 	@echo ""
@@ -60,6 +60,6 @@ _show-scripts:
 # Version information
 .PHONY: version
 version:
-	@echo "MakeBox v1.0.0"
+	@echo "MakeZ v1.0.0"
 	@echo "Make version: $(MAKE_VERSION)"
 	@echo "Shell: $(SHELL)"
