@@ -23,16 +23,7 @@ include $(wildcard ~/.makez/plugins/*/plugin.mk)
 .PHONY: help version
 
 help: ## Show available commands
-	@echo ""
-	@echo "  MakeZ - Your automation toolbox"
-	@echo "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-	@echo ""
-	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-18s %s\n", $$1, $$2}'
-	@echo ""
-	@echo "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-	@echo "  Usage: makez <command>"
-	@echo "  Add your own commands in makefiles/*.mk"
-	@echo ""
+	@$(SCRIPTS_DIR)show-help.sh $(MAKEFILE_DIR)
 
 version: ## Show version
 	@echo "MakeZ v1.0.0"
